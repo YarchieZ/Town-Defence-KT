@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 107421d6669fd1454e2b6ae7364755c0
+AssetOrigin:
+  serializedVersion: 1
+  productId: 412098
+  packageName: Pixel UI Fantasy Free
+  packageVersion: 1.0.1
+  assetPath: Assets/PixelUIFantasyFree/Sprites/themes/parchment/parchment.png
+  uploadId: 1006918
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -128,10 +135,3 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 412098
-  packageName: Pixel UI Fantasy Free
-  packageVersion: 1.0.1
-  assetPath: Assets/PixelUIFantasyFree/Sprites/themes/parchment/parchment.png
-  uploadId: 1006918
