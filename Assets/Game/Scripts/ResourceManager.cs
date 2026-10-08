@@ -2,21 +2,24 @@ using UnityEngine;
 
 public class ResourceManager : MonoBehaviour
 {
-    
-    public int Wheat { get; private set; }
+    [SerializeField] private UIManager uiManager;
+    public int Coins { get; private set; }
     public int Civillian { get; private set; }
     public int Soldier { get; private set; }
 
-    public void AddWheat(int wheat)
+    public void AddCoins(int value)
     {
-        Wheat += wheat;
+        Coins += value;
+        uiManager.UpdateUI(UnitType.Coin, Coins);
     }
     public void AddCivillian(int civillian)
     {
         Civillian += civillian;
+        uiManager.UpdateUI(UnitType.Villager, Civillian);
     }
     public void AddSoldier(int soldier)
     {
         Soldier += soldier;
+        uiManager.UpdateUI(UnitType.Soldier, Soldier);
     }
 }

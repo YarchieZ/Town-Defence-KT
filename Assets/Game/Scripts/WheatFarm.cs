@@ -21,7 +21,6 @@ public class WheatFarm : MonoBehaviour
     }
     private void WheatCounter()
     {
-        wheatCounterText.text = $"Запас пшеницы:\n{resourceManager.Wheat.ToString()}"; 
         if (_timer < incomeTimer)
         {
             _timer += Time.deltaTime;
@@ -30,7 +29,7 @@ public class WheatFarm : MonoBehaviour
         else
         {
             _timer = 0;
-            resourceManager.AddWheat(resourceManager.Civillian * incomePerCivillian);
+            resourceManager.AddCoins(resourceManager.Civillian * incomePerCivillian);
         }
     }
 
