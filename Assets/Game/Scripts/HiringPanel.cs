@@ -9,23 +9,22 @@ public class HiringPanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private string soldierName;
     [SerializeField] private string villagerName;
-    private ResourceManager resourceManager;
+    private UnitType _unitType;
+    private ResourceManager _resourceManager;
     private float _currTime;
-    private bool _isHiring = false;
-    private bool _type;
+    private bool _isHiring;
     private float _duration;
-
-
-    public void OnPanelSpawn(float dur, bool type, ResourceManager manager)
+    public void OnPanelSpawn(float dur, UnitType type, ResourceManager manager)
     {
         _duration = dur;
         _isHiring = true;
-        resourceManager = manager;
-        if (type)
+        _unitType = type;
+        _resourceManager = manager;
+        if (type == UnitType.Soldier)
         {
             nameText.text = soldierName;
         }
-        else
+        else if (type == UnitType.Villager)
         {
             nameText.text = villagerName;
         }
@@ -43,14 +42,13 @@ public class HiringPanel : MonoBehaviour
         }
         else if (_isHiring)
         {
-            if (_type)
+            if (_unitType == UnitType.Soldier)
             {
-                resourceManager.AddSoldier(1);
-
+                _resourceManager.AddSoldier(1);
             }
-            else
+            else if (_unitType == UnitType.Villager)
             {
-                resourceManager.AddCivillian(1);
+                _resourceManager.AddCivillian(1);
             }
             Destroy(gameObject);
         }

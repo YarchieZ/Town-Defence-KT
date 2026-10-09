@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public enum UnitType
-{
-    Soldier,
-    Villager,
-    Coin
-}
-
 [Serializable]
 public class UnitUI
 {
