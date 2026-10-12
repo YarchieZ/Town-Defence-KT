@@ -9,6 +9,7 @@ public class HiringPanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private string soldierName;
     [SerializeField] private string villagerName;
+    [SerializeField] private string paladinName;
     private UnitType _unitType;
     private ResourceManager _resourceManager;
     private float _currTime;
@@ -27,6 +28,10 @@ public class HiringPanel : MonoBehaviour
         else if (type == UnitType.Villager)
         {
             nameText.text = villagerName;
+        }
+        else if (type == UnitType.Paladin)
+        {
+            nameText.text = paladinName;
         }
     }
     private void Update()
@@ -49,6 +54,10 @@ public class HiringPanel : MonoBehaviour
             else if (_unitType == UnitType.Villager)
             {
                 _resourceManager.AddCivillian(1);
+            }
+            else if (_unitType == UnitType.Paladin)
+            {
+                _resourceManager.AddPaladin(1);
             }
             Destroy(gameObject);
         }
