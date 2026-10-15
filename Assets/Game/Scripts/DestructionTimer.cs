@@ -19,6 +19,12 @@ public class DestructionTimer : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        _isDestruction = false;
+        _currentTime = 0;
+    }
+
     public void StartDestruction(float timer)
     {
         _isDestruction = true;

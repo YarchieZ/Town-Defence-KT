@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 
 public class AttackCalculator : MonoBehaviour
 {
+    [SerializeField] private VictoryCalculator victoryCalculator;
     [SerializeField] private TextMeshProUGUI attackInfoText;
     [SerializeField] private ResourceManager resourceManager;
     [SerializeField] private GameObject losePanel;
@@ -14,7 +15,6 @@ public class AttackCalculator : MonoBehaviour
     [SerializeField] private TextMeshProUGUI victoryText;
     [SerializeField] private Slider attackSlider;
     [SerializeField] private int wavesCount;
-    [SerializeField] private float difficultyMultiplier;
     [SerializeField] private float startWaveDuration;
     [SerializeField] private int startEnemyPower;
     [SerializeField] private int minEnemyGrowCount;
@@ -26,7 +26,7 @@ public class AttackCalculator : MonoBehaviour
     private void Awake()
     {
         _waveDuration = startWaveDuration;
-        attackInfoText.text = $"Атака из: {startEnemyPower.ToString()} врагов";
+        attackInfoText.text = $"Атака из: {startEnemyPower.ToString()} врагов, волна: {_currentWave + 1}";
     }
     private void Update()
     {
@@ -38,15 +38,12 @@ public class AttackCalculator : MonoBehaviour
         else if (_currentWave < wavesCount)
         {
             _timer = 0;
-            _waveDuration *= difficultyMultiplier;
-            startEnemyPower += Random.Range(minEnemyGrowCount, maxEnemyGrowCount);
-            attackInfoText.text = $"Атака из: {startEnemyPower.ToString()} врагов";
             _currentWave++;
             CalculateWaves();
         }
         else
         {
-            
+            victoryCalculator.OnWinEvent();
         }
     }
 
@@ -55,25 +52,29 @@ public class AttackCalculator : MonoBehaviour
         int currentPower = resourceManager.Soldier + (resourceManager.Paladin * 3);
         if (startEnemyPower > currentPower)
         {
-            currentPower -= startEnemyPower;
-            int coinsLost = currentPower += Random.Range(1, 5);
-            int soldierLost = Random.Range(1, 3);
+            int calcLost = _currentWave * 3;
+            int coinsLost = Random.Range(8, 20) + calcLost;
+            int villagerLost = Random.Range(1, 7);
+            int soldierLost = Random.Range(1, 6);
             resourceManager.AddCoins(-coinsLost);
             resourceManager.AddSoldier(-soldierLost);
+            resourceManager.AddCivillian(-villagerLost);
             losePanel.SetActive(true);
-            loseText.text = $"Потеря монет: {coinsLost}\nПотеря воинов: {soldierLost}";
+            loseText.text = $"Потеря монет: {-coinsLost}\nПотеря воинов: {-soldierLost}\nПотеря жителей: {-villagerLost}";
         }
         else
         {
-            int soldierLost = Random.Range(1, 2);
-            int villagersFound = 1;
+            int soldierLost = Random.Range(1, 4);
+
             int coinsFound = Random.Range(1, 4);
             resourceManager.AddSoldier(-soldierLost);
-            resourceManager.AddCivillian(villagersFound);
             resourceManager.AddCoins(coinsFound);
             victoryPanel.SetActive(true);
             victoryText.text =
-                $"Потеря воинов: {soldierLost}\nНайдено крестьян: {villagersFound}\nНайдено монет: {coinsFound}";
+                $"Потеря воинов: {-soldierLost}\nНайдено монет: {coinsFound}";
         }
+        startEnemyPower += Random.Range(minEnemyGrowCount, maxEnemyGrowCount);
+        startEnemyPower += _currentWave * 2;
+        attackInfoText.text = $"Атака из: {startEnemyPower.ToString()} врагов, волна: {_currentWave}";
     }
 }

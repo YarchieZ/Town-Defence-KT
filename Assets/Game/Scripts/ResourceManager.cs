@@ -8,7 +8,7 @@ public enum UnitType
 }
 public class ResourceManager : MonoBehaviour
 {
-    
+    [SerializeField] private VictoryCalculator victoryCalculator;
     [SerializeField] private UIManager uiManager;
     public int Coins { get; private set; }
     public int Civillian { get; private set; }
@@ -20,6 +20,10 @@ public class ResourceManager : MonoBehaviour
     {
         Coins += value;
         uiManager.UpdateUI(UnitType.Coin, Coins);
+        if (Coins <= -20)
+        {
+            victoryCalculator.OnLoseEvent(Coins);
+        }
     }
     public void AddCivillian(int civillian)
     {

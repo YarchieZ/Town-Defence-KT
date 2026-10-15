@@ -471,6 +471,7 @@ MonoBehaviour:
   nameText: {fileID: 5631096126788684601}
   soldierName: "\u0412\u043E\u0438\u043D"
   villagerName: "\u041A\u0440\u0435\u0441\u0442\u044C\u044F\u043D\u0438\u043D"
+  paladinName: "\u041F\u0430\u043B\u0430\u0434\u0438\u043D "
 --- !u!1 &6703260683475011281
 GameObject:
   m_ObjectHideFlags: 0
